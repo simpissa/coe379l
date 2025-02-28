@@ -30,9 +30,8 @@
 #SBATCH -N 4               # Total # of nodes
 #SBATCH -n 16              # Total # of mpi tasks
 #SBATCH -t 00:01:00        # Run time (hh:mm:ss)
-#SBATCH --mail-user=mzhao12@tacc.utexas.edu
+#SBATCH --mail-user=matthewzhao420@gmail.com
 #SBATCH --mail-type=all    # Send email at begin and end of job
-#SBATCH -A transpose       # Allocation name (req'd if you have more than 1)
 
 # Other commands must follow all #SBATCH directives...:
 
