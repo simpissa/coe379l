@@ -15,7 +15,6 @@
 using namespace std;
 #include <mpl/mpl.hpp>
 
-#include "tools.h"
 #include <cassert>
 
 bool isapprox(int x,int y) {
@@ -56,18 +55,6 @@ int test_all_the_same_int( int value,const mpl::communicator& comm ) {
   // MPI_Allreduce(&value,&final_max,1,MPI_INT,MPI_MAX,comm);
   return final_min==final_max;
 }
-
-void print_final_result( bool cond,const mpl::communicator& comm ) {
-  int nprocs,procno;
-  nprocs = comm.size();
-  procno = comm.rank();
-  int error=nprocs, error_proc=-1;
-  if (cond)
-    error = procno;
-  comm.allreduce(mpl::min<int>(),error,error_proc);
-  error_process_print(error_proc,comm);
-};
-
 void error_process_print(int error_proc, const mpl::communicator& comm) {
   int nprocs,procno;
   nprocs = comm.size();
@@ -79,6 +66,17 @@ void error_process_print(int error_proc, const mpl::communicator& comm) {
       printf("First error occurred on proc %d\n",error_proc);
   }
 }
+void print_final_result( bool cond,const mpl::communicator& comm ) {
+  int nprocs,procno;
+  nprocs = comm.size();
+  procno = comm.rank();
+  int error=nprocs, error_proc=-1;
+  if (cond)
+    error = procno;
+  comm.allreduce(mpl::min<int>(),error,error_proc);
+  error_process_print(error_proc,comm);
+};
+
 
 int main() {
 
